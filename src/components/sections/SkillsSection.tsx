@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { skills, stackHighlights } from '../../data/skills'
 import { sectionItemVariants, sectionRevealVariants } from '../../utils/motion'
+import { SectionBackdrop } from '../ui/SectionBackdrop'
 import { SectionHeading } from '../ui/SectionHeading'
 import { TechBadge } from '../ui/TechBadge'
 
@@ -13,7 +14,8 @@ function getNoteClassName(note?: string): string {
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="ambient-section border-b border-border">
+    <section id="skills" className="ambient-section ambient-section-skills border-b border-border">
+      <SectionBackdrop variant="skills" />
       <div className="site-frame section-pad frame-pad">
         <SectionHeading
           eyebrow="01 / Capabilities"

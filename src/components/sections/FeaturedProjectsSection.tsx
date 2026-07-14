@@ -46,7 +46,7 @@ const projectCopyVariants: Variants = {
 
 export function FeaturedProjectsSection() {
   return (
-    <section id="featured-projects" className="ambient-section ambient-section-center border-b border-border">
+    <section id="featured-projects" className="border-b border-border bg-bg">
       <div className="site-frame section-pad">
         <div className="frame-pad">
           <SectionHeading

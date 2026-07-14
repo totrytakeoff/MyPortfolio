@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import { profile } from '../../data/profile'
 import { projects } from '../../data/projects'
 import { ProjectVisual } from '../project/ProjectVisual'
+import { AnimatedMetricValue } from '../ui/AnimatedMetricValue'
 import { SectionLink } from '../ui/SectionLink'
 
 const heroMetrics = [
-  { value: '714.4', unit: 'msg/s', label: 'MyChat WSS' },
-  { value: '22', unit: '单测通过', label: 'SO101 控制逻辑' },
-  { value: '4', unit: 'Merged PR', label: '上游贡献' },
-  { value: '65', unit: '本人提交', label: 'RM2026 本地记录' },
+  { value: 714.4, fractionDigits: 1, unit: 'msg/s', label: 'MyChat WSS' },
+  { value: 22, fractionDigits: 0, unit: '单测通过', label: 'SO101 控制逻辑' },
+  { value: 4, fractionDigits: 0, unit: 'Merged PR', label: '上游贡献' },
+  { value: 65, fractionDigits: 0, unit: '本人提交', label: 'RM2026 本地记录' },
 ] as const
 
 const projectSequence = [
@@ -152,7 +153,13 @@ export function HeroSection() {
             >
               <dt className="text-xs text-text-dim">{metric.label}</dt>
               <dd className="mt-3 flex flex-wrap items-baseline gap-2">
-                <span className="font-mono text-2xl tabular-nums text-accent">{metric.value}</span>
+                <span className="font-mono text-2xl tabular-nums text-accent">
+                  <AnimatedMetricValue
+                    value={metric.value}
+                    fractionDigits={metric.fractionDigits}
+                    delay={0.46 + index * 0.09}
+                  />
+                </span>
                 <span className="font-mono text-[10px] text-text-muted">{metric.unit}</span>
               </dd>
             </div>

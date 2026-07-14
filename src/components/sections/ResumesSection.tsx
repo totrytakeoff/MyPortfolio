@@ -3,11 +3,13 @@ import { Download } from 'lucide-react'
 import { resumes } from '../../data/resumes'
 import { getAssetUrl } from '../../utils/assets'
 import { sectionItemVariants, sectionRevealVariants } from '../../utils/motion'
+import { SectionBackdrop } from '../ui/SectionBackdrop'
 import { SectionHeading } from '../ui/SectionHeading'
 
 export function ResumesSection() {
   return (
-    <section id="resumes" className="ambient-section ambient-section-center border-b border-border bg-accent-dim/10">
+    <section id="resumes" className="ambient-section ambient-section-resumes border-b border-border">
+      <SectionBackdrop variant="resumes" />
       <div className="site-frame section-pad frame-pad">
         <SectionHeading
           eyebrow="04 / Resume routes"

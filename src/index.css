@@ -29,9 +29,9 @@
     z-index: 100;
     pointer-events: none;
     background-image: url('./assets/grain.webp');
-    background-size: 192px 192px;
-    mix-blend-mode: soft-light;
-    opacity: 0.032;
+    background-size: 256px 256px;
+    mix-blend-mode: screen;
+    opacity: 0.018;
   }
 
   #root {
@@ -56,6 +56,14 @@
 @layer components {
   .site-frame {
     @apply mx-auto max-w-content border-x border-border/80;
+  }
+
+  .global-stage {
+    background-color: #090a0d;
+    background-image:
+      radial-gradient(900px 540px at 2% 12%, rgb(69 98 158 / 0.085), transparent 72%),
+      radial-gradient(980px 620px at 98% 82%, rgb(48 74 132 / 0.065), transparent 74%);
+    background-attachment: fixed;
   }
 
   .frame-pad {
@@ -102,6 +110,10 @@
 
   .ambient-section {
     --ambient-x: 24%;
+    --ambient-y: 120px;
+    --ambient-secondary-x: 78%;
+    --ambient-alpha: 0.12;
+    --ambient-secondary-alpha: 0.065;
     position: relative;
     isolation: isolate;
     overflow: clip;
@@ -115,24 +127,83 @@
     pointer-events: none;
     background:
       radial-gradient(
-        ellipse 62% 26% at var(--ambient-x) 0%,
-        rgb(145 181 255 / 0.07),
-        rgb(145 181 255 / 0.018) 44%,
+        860px 340px at var(--ambient-x) var(--ambient-y),
+        rgb(145 181 255 / var(--ambient-alpha)),
+        rgb(99 132 198 / 0.035) 46%,
+        transparent 72%
+      ),
+      radial-gradient(
+        680px 300px at var(--ambient-secondary-x) calc(100% - 48px),
+        rgb(61 91 153 / var(--ambient-secondary-alpha)),
         transparent 74%
       );
   }
 
   .ambient-section > .site-frame {
     position: relative;
+    z-index: 2;
+  }
+
+  .ambient-section-skills {
+    --ambient-x: 80%;
+    --ambient-y: 190px;
+    --ambient-secondary-x: 14%;
+    background-color: rgb(9 10 13 / 0.42);
+  }
+
+  .ambient-section-opensource {
+    --ambient-x: 18%;
+    --ambient-y: 150px;
+    --ambient-secondary-x: 88%;
+    --ambient-alpha: 0.105;
+    background-color: rgb(10 12 18 / 0.78);
+  }
+
+  .ambient-section-resumes {
+    --ambient-x: 74%;
+    --ambient-y: 120px;
+    --ambient-secondary-x: 12%;
+    --ambient-alpha: 0.13;
+    --ambient-secondary-alpha: 0.075;
+    background-color: rgb(12 16 27 / 0.84);
+  }
+
+  .section-backdrop {
+    position: absolute;
+    inset: 0;
     z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
   }
 
-  .ambient-section-right {
-    --ambient-x: 76%;
+  .section-backdrop-mark {
+    position: absolute;
+    width: clamp(720px, 68vw, 1060px);
+    max-width: none;
+    user-select: none;
+    filter: invert(1) contrast(1.65);
+    mix-blend-mode: screen;
+    opacity: 0.058;
   }
 
-  .ambient-section-center {
-    --ambient-x: 50%;
+  .section-backdrop-skills .section-backdrop-mark {
+    top: 210px;
+    right: -510px;
+    transform: rotate(-7deg);
+  }
+
+  .section-backdrop-opensource .section-backdrop-mark {
+    top: -205px;
+    left: -520px;
+    transform: rotate(8deg);
+    opacity: 0.05;
+  }
+
+  .section-backdrop-resumes .section-backdrop-mark {
+    right: -450px;
+    bottom: -490px;
+    transform: rotate(-4deg);
+    opacity: 0.065;
   }
 }
 
@@ -290,5 +361,41 @@ html[data-motion='off'] .page-progress {
 
   .page-progress {
     display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .global-stage {
+    background-image:
+      radial-gradient(620px 420px at 0% 14%, rgb(69 98 158 / 0.065), transparent 74%),
+      radial-gradient(620px 460px at 100% 84%, rgb(48 74 132 / 0.05), transparent 76%);
+    background-attachment: scroll;
+  }
+
+  .ambient-section {
+    --ambient-alpha: 0.085;
+    --ambient-secondary-alpha: 0.045;
+  }
+
+  .section-backdrop-mark {
+    width: 660px;
+    opacity: 0.04;
+  }
+
+  .section-backdrop-skills .section-backdrop-mark {
+    top: 330px;
+    right: -500px;
+  }
+
+  .section-backdrop-opensource .section-backdrop-mark {
+    top: 80px;
+    left: -510px;
+    opacity: 0.035;
+  }
+
+  .section-backdrop-resumes .section-backdrop-mark {
+    right: -500px;
+    bottom: -300px;
+    opacity: 0.045;
   }
 }

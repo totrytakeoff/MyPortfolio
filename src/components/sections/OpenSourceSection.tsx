@@ -2,11 +2,13 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { contributions } from '../../data/openSource'
 import { sectionItemVariants, sectionRevealVariants } from '../../utils/motion'
+import { SectionBackdrop } from '../ui/SectionBackdrop'
 import { SectionHeading } from '../ui/SectionHeading'
 
 export function OpenSourceSection() {
   return (
-    <section id="opensource" className="ambient-section ambient-section-right border-b border-border">
+    <section id="opensource" className="ambient-section ambient-section-opensource border-b border-border">
+      <SectionBackdrop variant="opensource" />
       <div className="site-frame section-pad frame-pad">
         <SectionHeading
           eyebrow="03 / Open source"

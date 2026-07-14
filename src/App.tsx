@@ -17,7 +17,7 @@ export default function App() {
         }}
       >
         <Header />
-        <main className="min-h-screen">
+        <main className="global-stage min-h-screen">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/projects" element={<ProjectsPage />} />
