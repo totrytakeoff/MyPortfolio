@@ -14,6 +14,7 @@
 
   body {
     @apply min-w-[320px] overflow-x-hidden bg-bg font-sans text-text-primary;
+    position: relative;
     font-size: 16px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
@@ -21,8 +22,21 @@
     text-rendering: optimizeLegibility;
   }
 
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    background-image: url('./assets/grain.webp');
+    background-size: 192px 192px;
+    mix-blend-mode: soft-light;
+    opacity: 0.032;
+  }
+
   #root {
     @apply min-h-screen;
+    isolation: isolate;
   }
 
   button,
@@ -84,6 +98,41 @@
     content: '';
     @apply pointer-events-none absolute inset-0 border border-white/[0.06];
     box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.24);
+  }
+
+  .ambient-section {
+    --ambient-x: 24%;
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+
+  .ambient-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse 62% 26% at var(--ambient-x) 0%,
+        rgb(145 181 255 / 0.07),
+        rgb(145 181 255 / 0.018) 44%,
+        transparent 74%
+      );
+  }
+
+  .ambient-section > .site-frame {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ambient-section-right {
+    --ambient-x: 76%;
+  }
+
+  .ambient-section-center {
+    --ambient-x: 50%;
   }
 }
 
@@ -173,6 +222,39 @@
   animation-play-state: paused;
 }
 
+html[data-motion='off'] {
+  scroll-behavior: auto;
+}
+
+html[data-motion='off'] *,
+html[data-motion='off'] *::before,
+html[data-motion='off'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0.01ms !important;
+}
+
+html[data-motion='off'] .project-reel-forward,
+html[data-motion='off'] .project-reel-reverse {
+  animation: none !important;
+  transform: translate3d(-8%, 0, 0);
+}
+
+html[data-motion='off'] .stack-marquee {
+  overflow-x: auto;
+}
+
+html[data-motion='off'] .stack-marquee-track {
+  animation: none !important;
+  transform: none;
+}
+
+html[data-motion='off'] .stack-marquee-copy,
+html[data-motion='off'] .page-progress {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -203,6 +285,10 @@
   }
 
   .stack-marquee-copy {
+    display: none;
+  }
+
+  .page-progress {
     display: none;
   }
 }

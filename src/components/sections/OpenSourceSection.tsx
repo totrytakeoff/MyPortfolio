@@ -1,10 +1,12 @@
+import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { contributions } from '../../data/openSource'
+import { sectionItemVariants, sectionRevealVariants } from '../../utils/motion'
 import { SectionHeading } from '../ui/SectionHeading'
 
 export function OpenSourceSection() {
   return (
-    <section id="opensource" className="border-b border-border">
+    <section id="opensource" className="ambient-section ambient-section-right border-b border-border">
       <div className="site-frame section-pad frame-pad">
         <SectionHeading
           eyebrow="03 / Open source"
@@ -12,16 +14,27 @@ export function OpenSourceSection() {
           description="每条贡献都可直接进入公开 PR，查看问题复现、修改范围、测试与审查过程。"
         />
 
-        <div className="border-y border-border">
+        <motion.div
+          className="border-y border-border"
+          variants={sectionRevealVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-72px' }}
+        >
           {contributions.map((contribution) => (
-            <a
+            <motion.a
               key={`${contribution.repo}-${contribution.prNumber}`}
               href={contribution.url}
               target="_blank"
               rel="noreferrer"
-              className="group grid gap-4 border-b border-border px-1 py-6 transition-colors last:border-b-0 hover:bg-surface/70 sm:px-5 lg:grid-cols-[72px_1fr_1.7fr_24px] lg:items-center"
+              className="group relative grid gap-4 overflow-hidden border-b border-border px-1 py-6 transition-colors last:border-b-0 hover:bg-surface/70 focus-visible:bg-surface/70 sm:px-5 lg:grid-cols-[72px_1fr_1.7fr_24px] lg:items-center"
+              variants={sectionItemVariants}
             >
-              <span className="font-display text-3xl italic text-accent/75">
+              <span
+                className="absolute inset-y-0 left-0 w-px origin-bottom scale-y-0 bg-accent transition-transform duration-200 group-hover:scale-y-100 group-focus-visible:scale-y-100"
+                aria-hidden="true"
+              />
+              <span className="font-display text-3xl italic text-accent/75 transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1">
                 {String(contribution.index).padStart(2, '0')}
               </span>
               <div>
@@ -41,9 +54,9 @@ export function OpenSourceSection() {
                 size={18}
                 aria-hidden="true"
               />
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

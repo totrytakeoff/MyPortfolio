@@ -1,5 +1,6 @@
 import type { MouseEvent, ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useMotionPreference } from '../../hooks/useMotionPreference'
 
 interface SectionLinkProps {
   sectionId: string
@@ -15,6 +16,7 @@ export function SectionLink({
   onNavigate,
 }: SectionLinkProps) {
   const location = useLocation()
+  const { motionEnabled } = useMotionPreference()
 
   function handleClick(event: MouseEvent<HTMLAnchorElement>) {
     onNavigate?.()
@@ -22,7 +24,9 @@ export function SectionLink({
     if (location.pathname !== '/') return
 
     event.preventDefault()
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById(sectionId)?.scrollIntoView({
+      behavior: motionEnabled ? 'smooth' : 'auto',
+    })
   }
 
   return (

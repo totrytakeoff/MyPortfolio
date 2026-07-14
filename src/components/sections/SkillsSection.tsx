@@ -1,4 +1,6 @@
+import { motion } from 'framer-motion'
 import { skills, stackHighlights } from '../../data/skills'
+import { sectionItemVariants, sectionRevealVariants } from '../../utils/motion'
 import { SectionHeading } from '../ui/SectionHeading'
 import { TechBadge } from '../ui/TechBadge'
 
@@ -11,7 +13,7 @@ function getNoteClassName(note?: string): string {
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="border-b border-border">
+    <section id="skills" className="ambient-section border-b border-border">
       <div className="site-frame section-pad frame-pad">
         <SectionHeading
           eyebrow="01 / Capabilities"
@@ -19,11 +21,15 @@ export function SkillsSection() {
           description="语言、框架、协议与工具按实际使用场景归类，熟悉程度与项目实践分别标注。"
         />
 
-        <div
+        <motion.div
           className="stack-marquee mb-10 border-y border-border bg-surface/20 py-5 sm:mb-12"
           role="region"
           aria-label="代表性技术栈滚动展示，聚焦或悬停可暂停"
           tabIndex={0}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-72px' }}
+          transition={{ duration: 0.48, ease: 'easeOut' }}
         >
           <div className="stack-marquee-track">
             <ul className="flex shrink-0 gap-2.5 pr-2.5">
@@ -41,13 +47,20 @@ export function SkillsSection() {
               ))}
             </ul>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="grid border-y border-border md:grid-cols-2 xl:grid-cols-4">
+        <motion.div
+          className="grid border-y border-border md:grid-cols-2 xl:grid-cols-4"
+          variants={sectionRevealVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-72px' }}
+        >
           {skills.map((skill, index) => (
-            <article
+            <motion.article
               key={skill.domain}
               className={`px-1 py-8 sm:px-6 xl:px-7 ${index < skills.length - 1 ? 'border-b border-border md:border-b-0 md:odd:border-r xl:border-r' : ''} ${index === 1 ? 'md:border-r-0 xl:border-r' : ''} ${index === 2 ? 'md:border-r' : ''}`}
+              variants={sectionItemVariants}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -73,9 +86,9 @@ export function SkillsSection() {
                   </li>
                 ))}
               </ul>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -1,7 +1,9 @@
-import { ArrowUpRight, Download, Github, Menu, X } from 'lucide-react'
+import { motion, useScroll } from 'framer-motion'
+import { ArrowUpRight, Download, Github, Menu, Pause, Play, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { profile } from '../../data/profile'
+import { useMotionPreference } from '../../hooks/useMotionPreference'
 import { SectionLink } from '../ui/SectionLink'
 
 const routeItems = [
@@ -18,6 +20,8 @@ function getRouteClassName(isActive: boolean): string {
 export function Header() {
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
+  const { scrollYProgress } = useScroll()
+  const { motionEnabled, toggleMotion } = useMotionPreference()
 
   useEffect(() => {
     setMenuOpen(false)
@@ -69,6 +73,16 @@ export function Header() {
         </nav>
 
         <div className="flex h-full items-center border-l border-border/80">
+          <button
+            type="button"
+            className="hidden h-full items-center gap-2 border-r border-border/80 px-4 font-mono text-[10px] uppercase tracking-[0.12em] text-text-dim transition-colors hover:bg-surface hover:text-text-primary md:inline-flex"
+            aria-label={motionEnabled ? '关闭页面动效' : '开启页面动效'}
+            aria-pressed={motionEnabled}
+            onClick={toggleMotion}
+          >
+            {motionEnabled ? <Pause size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
+            <span>{motionEnabled ? 'Motion on' : 'Motion off'}</span>
+          </button>
           <SectionLink
             sectionId="resumes"
             className="hidden h-full items-center gap-2 px-5 text-sm font-medium text-accent transition-colors hover:bg-accent-dim/35 sm:inline-flex"
@@ -119,6 +133,16 @@ export function Header() {
               <span className="inline-flex items-center gap-2"><Github size={15} aria-hidden="true" /> GitHub</span>
               <ArrowUpRight size={14} aria-hidden="true" />
             </a>
+            <button
+              type="button"
+              className="mt-3 flex min-h-12 items-center justify-between border border-border px-3 font-mono text-[10px] uppercase tracking-[0.12em] text-text-muted"
+              aria-label={motionEnabled ? '关闭页面动效' : '开启页面动效'}
+              aria-pressed={motionEnabled}
+              onClick={toggleMotion}
+            >
+              <span>{motionEnabled ? 'Motion on' : 'Motion off'}</span>
+              {motionEnabled ? <Pause size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
+            </button>
             <SectionLink
               sectionId="resumes"
               className="mt-3 inline-flex min-h-12 items-center justify-center gap-2 border border-accent/50 text-sm text-accent"
@@ -130,6 +154,12 @@ export function Header() {
           </div>
         </nav>
       ) : null}
+
+      <motion.div
+        className="page-progress pointer-events-none absolute inset-x-0 bottom-[-1px] h-px origin-left bg-accent"
+        style={{ scaleX: motionEnabled ? scrollYProgress : 0 }}
+        aria-hidden="true"
+      />
     </header>
   )
 }

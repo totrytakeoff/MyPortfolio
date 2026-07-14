@@ -5,6 +5,7 @@ import { FeaturedProjectsSection } from '../components/sections/FeaturedProjects
 import { OpenSourceSection } from '../components/sections/OpenSourceSection'
 import { ResumesSection } from '../components/sections/ResumesSection'
 import { SkillsSection } from '../components/sections/SkillsSection'
+import { useMotionPreference } from '../hooks/useMotionPreference'
 
 interface HomeNavigationState {
   scrollTo?: string
@@ -13,18 +14,21 @@ interface HomeNavigationState {
 export function HomePage() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { motionEnabled } = useMotionPreference()
 
   useEffect(() => {
     const state = location.state as HomeNavigationState | null
     if (!state?.scrollTo) return
 
     const frameId = window.requestAnimationFrame(() => {
-      document.getElementById(state.scrollTo ?? '')?.scrollIntoView({ behavior: 'smooth' })
+      document.getElementById(state.scrollTo ?? '')?.scrollIntoView({
+        behavior: motionEnabled ? 'smooth' : 'auto',
+      })
       navigate('/', { replace: true, state: null })
     })
 
     return () => window.cancelAnimationFrame(frameId)
-  }, [location.state, navigate])
+  }, [location.state, motionEnabled, navigate])
 
   return (
     <>
