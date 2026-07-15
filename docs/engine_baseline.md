@@ -160,7 +160,7 @@ myPortfolio/
 | `OpenSourceContribution` | 四条已合并贡献 |
 | `Resume` | 三个简历版本入口 |
 
-`Project.cover` 是全部项目必需的首图资源；`gallery` 及详情字段 `background`、`solution`、`results`、`boundaries`、`roadmap`、`upstream` 均可选。页面必须处理字段缺失，不能用非空断言假设每个项目都具备相同长度内容。
+`Project.cover` 是全部项目必需的首图资源；`gallery`、`evidenceMedia` 及详情字段 `background`、`solution`、`results`、`boundaries`、`roadmap`、`upstream`、`architecture`、`audit` 均可选。`architecture` 用结构化 flow 与 decision 解释系统取舍，`audit` 记录按日期归档的运行环境、操作检查和已发现问题。页面必须处理字段缺失，不能用非空断言假设每个项目都具备相同长度内容。
 
 ### projects.ts 必需导出
 
@@ -346,6 +346,8 @@ HashRouter 与页面锚点共享浏览器 hash，不能用普通 `href="#project
 | `OpenSourceSection` | 四条合并贡献 | openSource.ts |
 | `ResumesSection` | 三个简历版本与下载入口 | resumes.ts |
 | `ProjectDetailPage` | slug 查询和 Case Study 内容编排 | projects API |
+| `ProjectArchitecturePanel` | 可选架构流、关键决策与取舍 | Project.architecture |
+| `ProjectAuditPanel` | 可选操作审计、通过项与已发现问题 | Project.audit |
 | `EvidenceBadge` | 证据等级显示 | EvidenceLevel prop |
 | `MetricCard` | 单项指标显示 | ProjectMetric prop |
 | `RoadmapStrip` | 项目路线状态 | RoadmapItem[] prop |

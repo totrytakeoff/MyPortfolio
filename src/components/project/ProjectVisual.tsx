@@ -8,6 +8,7 @@ interface ProjectVisualProps {
   loading?: 'eager' | 'lazy'
   sizes?: string
   objectPosition?: string
+  containPadding?: 'default' | 'compact' | 'none'
 }
 
 export function ProjectVisual({
@@ -17,7 +18,14 @@ export function ProjectVisual({
   loading = 'lazy',
   sizes,
   objectPosition,
+  containPadding = 'default',
 }: ProjectVisualProps) {
+  const containPaddingClass = {
+    default: 'p-6 sm:p-10',
+    compact: 'p-3 sm:p-5',
+    none: '',
+  }[containPadding]
+
   return (
     <div className={`image-stage ${className}`}>
       <img
@@ -26,7 +34,7 @@ export function ProjectVisual({
         loading={loading}
         decoding="async"
         sizes={sizes}
-        className={`h-full w-full ${media.fit === 'contain' ? 'object-contain p-6 sm:p-10' : 'object-cover'} ${imageClassName}`}
+        className={`h-full w-full ${media.fit === 'contain' ? `object-contain ${containPaddingClass}` : 'object-cover'} ${imageClassName}`}
         style={{ objectPosition: objectPosition ?? media.position ?? 'center' }}
       />
     </div>

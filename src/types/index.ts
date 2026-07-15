@@ -1,4 +1,4 @@
-export type ProjectCategory = 'cpp' | 'embedded' | 'robotics'
+export type ProjectCategory = 'systems' | 'ai' | 'embedded' | 'robotics'
 export type EvidenceLevel = 'A' | 'B' | 'C' | 'D'
 export type ProjectStatus = 'verified' | 'mvp-verified' | 'release' | 'in-progress' | 'iterating'
 export type RoadmapStatus = 'done' | 'current' | 'planned'
@@ -39,6 +39,57 @@ export interface ProjectMedia {
   position?: string
 }
 
+export interface ProjectFlowStep {
+  label: string
+  title: string
+  description: string
+}
+
+export interface ProjectDecision {
+  title: string
+  context: string
+  decision: string
+  outcome: string
+  tradeoff?: string
+  evidence?: string
+}
+
+export interface ProjectArchitecture {
+  title: string
+  summary: string
+  flow: ProjectFlowStep[]
+  decisions: ProjectDecision[]
+  media?: ProjectMedia
+}
+
+export type ProjectAuditStatus = 'passed' | 'qualified'
+
+export interface ProjectAuditCheck {
+  title: string
+  result: string
+  detail?: string
+  status: ProjectAuditStatus
+}
+
+export interface ProjectAudit {
+  title: string
+  date: string
+  environment: string
+  summary: string
+  checks: ProjectAuditCheck[]
+  media?: ProjectMedia[]
+}
+
+export interface ProjectResearch {
+  title: string
+  status: string
+  role: string
+  summary: string
+  questions: string[]
+  deliverables?: string[]
+  boundary: string
+}
+
 export interface Project {
   slug: string
   title: string
@@ -50,7 +101,8 @@ export interface Project {
   status: ProjectStatus
   evidence: ProjectEvidence
   cover: ProjectMedia
-  gallery?: ProjectMedia[]
+  showcaseMedia?: ProjectMedia[]
+  evidenceMedia?: ProjectMedia[]
   summary: string
   highlights: string[]
   metrics: ProjectMetric[]
@@ -59,9 +111,13 @@ export interface Project {
   background?: string
   solution?: string
   results?: string
+  collaboration?: string
+  research?: ProjectResearch
   boundaries?: string[]
   roadmap?: RoadmapItem[]
   upstream?: string
+  architecture?: ProjectArchitecture
+  audit?: ProjectAudit
 }
 
 export interface Profile {

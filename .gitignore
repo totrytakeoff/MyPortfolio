@@ -30,5 +30,6 @@ Thumbs.db
 
 # Local working and visual QA artifacts
 /temp/
+/.playwright-mcp/
 /design-qa/
 /design-qa.md

@@ -12,7 +12,8 @@ const filterOptions: ReadonlyArray<{
   label: string
 }> = [
   { value: 'all', label: '全部项目' },
-  { value: 'cpp', label: '系统 / 后端' },
+  { value: 'systems', label: '系统 / 后端' },
+  { value: 'ai', label: 'AI' },
   { value: 'embedded', label: '嵌入式' },
   { value: 'robotics', label: '机器人' },
 ]
