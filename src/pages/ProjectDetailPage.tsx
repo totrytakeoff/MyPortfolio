@@ -182,11 +182,7 @@ export function ProjectDetailPage() {
                     )
                   })}
                 </div>
-              ) : (
-                <p className="mt-6 border-y border-border py-4 text-xs leading-6 text-text-dim">
-                  独立公开仓库链接待后续补充，当前证据以本地测试和真机记录为主。
-                </p>
-              )}
+              ) : null}
 
               <div className="mt-8">
                 <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-text-dim">Core stack</p>

@@ -26,6 +26,10 @@ const projectStatusMeta: Record<ProjectStatus, ProjectStatusMeta> = {
     label: '持续迭代',
     className: 'border-status-amber/40 bg-status-amber-dim/30 text-status-amber',
   },
+  paused: {
+    label: 'MVP 已暂停',
+    className: 'border-border-hover bg-surface text-text-muted',
+  },
 }
 
 export function getProjectStatusMeta(status: ProjectStatus): ProjectStatusMeta {

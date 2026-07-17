@@ -73,10 +73,10 @@ export const skills: Skill[] = [
     domainLabel: '机器人 & 控制',
     items: [
       { name: 'LeRobot', note: '有项目实践' },
-      { name: 'ROS2 Humble', note: '有项目实践（Docker 环境验证，driver 规划中）' },
+      { name: 'ROS2', note: '有项目实践（driver、JointState、URDF / RViz）' },
       { name: '运动学 / 轨迹规划', note: '有项目实践' },
       { name: 'PID 控制', note: '熟悉' },
-      { name: 'OpenCV', note: '有项目实践（PR 贡献证明）' },
+      { name: 'OpenCV', note: '有项目实践（视觉定位 / 上游 PR）' },
     ],
   },
   {

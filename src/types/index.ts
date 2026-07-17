@@ -1,6 +1,6 @@
 export type ProjectCategory = 'systems' | 'ai' | 'embedded' | 'robotics'
 export type EvidenceLevel = 'A' | 'B' | 'C' | 'D'
-export type ProjectStatus = 'verified' | 'mvp-verified' | 'release' | 'in-progress' | 'iterating'
+export type ProjectStatus = 'verified' | 'mvp-verified' | 'release' | 'in-progress' | 'iterating' | 'paused'
 export type RoadmapStatus = 'done' | 'current' | 'planned'
 export type LinkType = 'repo' | 'pr' | 'benchmark' | 'release' | 'demo' | 'doc' | 'other'
 

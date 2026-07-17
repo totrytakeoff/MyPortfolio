@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Codgent successful stub workflow run</title>
+  <desc id="desc">A terminal-style view shows planning, coding, reviewing, context synchronization and an approved Git commit, alongside the generated artifact tree.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#080a0e"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#93a4c3" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+
+  <g font-family="Inter, Noto Sans SC, sans-serif">
+    <text x="82" y="74" fill="#8fa5ca" font-family="JetBrains Mono, monospace" font-size="16" letter-spacing="4">FRESH REPOSITORY / STUB E2E AUDIT</text>
+    <text x="82" y="126" fill="#f1f4f9" font-size="40" font-weight="650">One task, from requirement to approved commit</text>
+
+    <g transform="translate(82 178)">
+      <rect width="948" height="634" rx="12" fill="#080b10" stroke="#354158"/>
+      <rect width="948" height="52" rx="12" fill="#141923"/>
+      <rect y="40" width="948" height="12" fill="#141923"/>
+      <circle cx="28" cy="26" r="7" fill="#f87171"/>
+      <circle cx="52" cy="26" r="7" fill="#fbbf24"/>
+      <circle cx="76" cy="26" r="7" fill="#4ade80"/>
+      <text x="112" y="32" fill="#8c98ac" font-family="JetBrains Mono, monospace" font-size="14">codgent run · task001</text>
+
+      <g font-family="JetBrains Mono, monospace" font-size="17">
+        <text x="28" y="92" fill="#8fb4ff">$ python -m codgent --repo /tmp/demo run "Create the first narrow task"</text>
+        <text x="28" y="132" fill="#8c98ac">[codgent]</text><text x="142" y="132" fill="#dce3ef">planning task001 with stub</text>
+        <text x="52" y="166" fill="#4ade80">✓ planner completed</text><text x="330" y="166" fill="#748198">tasks/task001/plan.md</text>
+        <text x="28" y="212" fill="#8c98ac">[codgent]</text><text x="142" y="212" fill="#dce3ef">coding task001 with stub</text>
+        <text x="52" y="246" fill="#4ade80">✓ coder completed</text><text x="330" y="246" fill="#748198">tasks/task001/summary.md</text>
+        <text x="28" y="292" fill="#8c98ac">[codgent]</text><text x="142" y="292" fill="#dce3ef">reviewing task001 with stub</text>
+        <text x="52" y="326" fill="#4ade80">✓ reviewer completed</text><text x="330" y="326" fill="#748198">tasks/task001/review.md</text>
+        <text x="28" y="372" fill="#8c98ac">[documenter]</text><text x="166" y="372" fill="#dce3ef">syncing durable project context</text>
+        <text x="52" y="406" fill="#4ade80">✓ context sync completed</text><text x="330" y="406" fill="#748198">final.md · context_sync.md</text>
+
+        <rect x="28" y="444" width="892" height="76" rx="6" fill="#101923" stroke="#1f6f62"/>
+        <text x="48" y="476" fill="#4ade80">APPROVED</text>
+        <text x="190" y="476" fill="#dce3ef">codgent: approve task001</text>
+        <text x="48" y="505" fill="#748198">state advanced → task002 / planning</text>
+
+        <text x="28" y="566" fill="#8fb4ff">$ codgent status</text>
+        <text x="28" y="602" fill="#748198">current_task:</text><text x="188" y="602" fill="#dce3ef">task002</text>
+        <text x="370" y="602" fill="#748198">last_decision:</text><text x="548" y="602" fill="#4ade80">APPROVED</text>
+      </g>
+    </g>
+
+    <g transform="translate(1064 178)">
+      <rect width="454" height="634" rx="12" fill="#0e1219" stroke="#354158"/>
+      <text x="28" y="42" fill="#8290a7" font-family="JetBrains Mono, monospace" font-size="14" letter-spacing="2">GENERATED RECORD</text>
+      <g font-family="JetBrains Mono, monospace" font-size="16">
+        <text x="28" y="88" fill="#8fb4ff">docs/agent_context/</text>
+        <text x="48" y="124" fill="#dce3ef">├── state.json</text>
+        <text x="48" y="158" fill="#dce3ef">├── project_context.md</text>
+        <text x="48" y="192" fill="#dce3ef">├── architecture_analysis.md</text>
+        <text x="48" y="226" fill="#dce3ef">├── tasks/task001/</text>
+        <text x="76" y="260" fill="#91a0b8">├── plan.md</text>
+        <text x="76" y="294" fill="#91a0b8">├── summary.md</text>
+        <text x="76" y="328" fill="#91a0b8">├── review.md</text>
+        <text x="76" y="362" fill="#91a0b8">├── final.md</text>
+        <text x="76" y="396" fill="#91a0b8">└── context_sync.md</text>
+        <text x="48" y="430" fill="#dce3ef">└── runs/</text>
+        <text x="76" y="464" fill="#91a0b8">├── current.json</text>
+        <text x="76" y="498" fill="#91a0b8">├── *.events.jsonl</text>
+        <text x="76" y="532" fill="#91a0b8">└── *.output.txt</text>
+      </g>
+
+      <line x1="28" y1="566" x2="426" y2="566" stroke="#303a4d"/>
+      <text x="28" y="600" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="13">TRACEABLE</text>
+      <text x="146" y="600" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="13">RESUMABLE</text>
+      <text x="272" y="600" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="13">GIT-BOUND</text>
+    </g>
+
+    <text x="82" y="856" fill="#66738a" font-family="JetBrains Mono, monospace" font-size="14">AUDITED 2026-07-16 · Python 3.14.5 · Git 2.54.0 · 11/11 smoke tests</text>
+  </g>
+</svg>

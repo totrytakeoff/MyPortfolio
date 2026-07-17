@@ -1,6 +1,6 @@
 # 薛晓春工程作品集
 
-面向 C++ 系统/后端、嵌入式软件和机器人软件实习方向的静态工程作品集。首页用于快速选择，完整项目档案和详情页用于核对代码、测试、指标、上游记录与工程边界。
+面向 C++ 系统/后端、嵌入式软件和机器人软件实习方向，并承载 AI / 研究工程内容的静态工程作品集。首页用于快速选择，完整项目档案和详情页用于核对代码、测试、指标、上游记录与工程边界。
 
 ## 本地运行
 
@@ -36,6 +36,10 @@ npm run preview
 ```
 
 ## 内容维护
+
+- 项目审计、内容凝练与素材语义：[Project Content Baseline](docs/project_content_baseline.md)
+- UI 与响应式规范：[UI Baseline](docs/UI_baseline.md)
+- 数据契约与工程规范：[Engine Baseline](docs/engine_baseline.md)
 
 - 个人信息：`src/data/profile.ts`
 - 项目：`src/data/projects.ts`

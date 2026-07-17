@@ -1,11 +1,11 @@
 # Engine Baseline — 薛晓春工程作品集
 
-> 本文档定义工程架构、目录、数据契约、路由、静态资源、内容治理和验收要求。
-> 视觉语言与响应式表现只以 `UI_baseline.md` 为准。
+> 本文档定义工程架构、目录、数据契约、路由、静态资源和工程验收要求。
+> 视觉语言与响应式表现以 `UI_baseline.md` 为准；项目审计、事实、证据、文案与素材语义以 `project_content_baseline.md` 为准。
 
 ## 1. 项目目标与范围
 
-本项目是供简历链接访问的静态工程作品集，服务于 C++ 系统/后端、嵌入式软件和机器人软件三个求职方向。
+本项目是供简历链接访问的静态工程作品集，主要服务于 C++ 系统/后端、嵌入式软件和机器人软件求职方向，并承载能够体现系统实现能力的 AI / 研究工程项目。
 
 工程目标：
 
@@ -23,12 +23,13 @@
 发生冲突时按以下顺序处理：
 
 1. 用户当前明确指令与工程真实性边界；
-2. `src/types/index.ts` 中的实际类型契约；
-3. 本文档的工程规则；
-4. `UI_baseline.md` 的视觉与交互规则；
-5. 项目审计报告和经历证据总表中的已核验事实。
+2. 项目仓库、运行记录、审计报告和经历证据总表中的已核验事实；
+3. `project_content_baseline.md` 的内容审计与表达规则；
+4. `src/types/index.ts` 中的实际类型契约；
+5. 本文档的工程规则；
+6. `UI_baseline.md` 的视觉与交互规则。
 
-`UI_baseline.md` 不定义技术栈、目录、数据字段、构建方式或事实文案。本文档也不重复具体颜色、字号和组件视觉参数。
+`UI_baseline.md` 不定义技术栈、目录、数据字段、构建方式或事实文案。`project_content_baseline.md` 不定义组件视觉和路由实现。本文档不重复具体颜色、字号，也不替代项目事实审计。
 
 ## 3. 技术栈
 
@@ -87,7 +88,8 @@ export default defineConfig({
 myPortfolio/
 ├── docs/
 │   ├── UI_baseline.md
-│   └── engine_baseline.md
+│   ├── engine_baseline.md
+│   └── project_content_baseline.md
 ├── public/
 │   └── assets/
 │       ├── images/
@@ -151,7 +153,7 @@ myPortfolio/
 
 | 类型 | 用途 |
 |---|---|
-| `ProjectCategory` | `cpp / embedded / robotics` 分类 |
+| `ProjectCategory` | `systems / ai / embedded / robotics` 分类 |
 | `EvidenceLevel` | `A / B / C / D` 证据等级 |
 | `ProjectStatus` | 项目交付状态 |
 | `Project` | 首页卡片与详情页共同数据 |
@@ -167,7 +169,7 @@ myPortfolio/
 ```ts
 import type { Project, ProjectCategory } from '../types'
 
-export const projects: Project[] = [/* 六个项目 */]
+export const projects: Project[] = [/* 持续扩展的项目数据 */]
 
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug)
@@ -181,7 +183,7 @@ export function getProjectsByCategory(
 }
 ```
 
-首版固定六个 slug：
+当前已录入的首批 slug：
 
 ```text
 mychat
@@ -189,10 +191,12 @@ asd-kgrag
 rm2026
 colorful-u1
 so101-lerobot
+codgent
+verge-tui
 byteide
 ```
 
-不在首版加入 `remote_car`，也不为重复项目创建第二份数据。
+项目列表可以继续扩展；slug 一经公开应保持稳定，也不为同一项目的版本演进创建重复项目数据。
 
 ### 数据驱动规则
 
@@ -205,11 +209,9 @@ byteide
 
 ## 7. 内容与证据治理
 
-内容事实优先来自：
+项目资料审计、事实台账、字段写作、证据分层、素材语义和内容验收统一遵循 `project_content_baseline.md`。本节只保留直接影响数据与页面实现的工程约束。
 
-1. 六份 `project_resume_material_audit.md`；
-2. `经历证据总表.md`；
-3. 三份简历数据与本次交接中已明确的更新口径。
+事实来源与证据优先级由 `project_content_baseline.md` 定义。项目仓库、版本化运行记录和直接审计是主要依据；`project_resume_material_audit.md`、`经历证据总表.md`、简历与交接说明用于建立调查入口和交叉核对，不能覆盖更新、更直接的项目证据。
 
 运行时数据遵守以下规则：
 
@@ -221,13 +223,15 @@ byteide
 - `boundaries` 应直接描述当前范围和未覆盖能力，不把“禁止怎样写”的元指令原样展示给访客。
 - 详情页可以通过已有字段回退组织内容，但不能为了填满 section 新造事实。
 
-六个项目的核心边界：
+当前已录入项目的核心边界示例（不能作为后续项目的固定模板）：
 
 - **MyChat**：当前是单 Gateway 工程型 MVP；压测为跨主机单路径；完整构建仍有 ODB include 版本问题。
 - **ASD-KGRAG**：定位为研究资料问答与检索工程；无临床验证；Agent 是受控确定性工作流。
-- **RM2026**：基于 YueLuRM 框架完成应用层迁移和控制链路；约 30 个是联调构建目标，不等于全部测试通过。
+- **RM2026**：早期基于 YueLuRM 框架完成多车型控制与赛季联调，当前正在重构静态 FreeRTOS 运行时；30/30 个板级固件目标已完成全量交叉编译，5/5 个主机测试程序通过，但构建结果与逻辑测试都不替代重构后的实机验收。
 - **Colorful-U1**：基于 SnapAce/multiACE 的下游开发；个人贡献集中在 source graph、route plan、安全门和回归用例。
 - **SO101 + LeRobot**：基础控制与逻辑测试已有证据；ROS2 工程、仿真、视觉和抓取仍是后续阶段。
+- **Codgent**：串行多 Agent 工作流 MVP 已跑通并完成复盘；项目暂停是效率实验后的阶段结论，不能把后续“单主 Agent + workers”方向写成当前能力。
+- **verge-tui**：交付的是 Mihomo / Clash 的终端控制面，代理协议与数据面来自 Mihomo；系统代理和特权服务兼容复用 Clash Verge Rev 相关组件。
 - **ByteIDE**：基于 Qt 6 与 QScintilla 集成的轻量开发工具；公开 Release 是主要交付证据。
 
 ### 状态与证据映射
@@ -239,6 +243,7 @@ byteide
 | `release` | 公开 Release | green |
 | `in-progress` | 进行中 | amber |
 | `iterating` | 持续迭代 | amber |
+| `paused` | MVP 已暂停 | dim |
 
 | `EvidenceLevel` | 含义 | 视觉色 |
 |---|---|---|
@@ -254,7 +259,7 @@ byteide
 部署目录：
 
 ```text
-public/assets/images/
+public/assets/images/<project-slug>/
 public/assets/resumes/
 ```
 
@@ -274,6 +279,8 @@ PDF 源目录：
 
 资源规则：
 
+- 项目图片按 `public/assets/images/<project-slug>/` 一项目一目录组织，目录名与 `Project.slug` 保持一致并统一使用小写 kebab-case。
+- `public/assets/images/` 根目录不直接存放项目图片；站点级品牌资源可继续放在 `public/` 或源码资产目录。
 - 复制资源，不移动、不重命名源文件，不修改旧版目录。
 - 应用内路径通过 `import.meta.env.BASE_URL` 拼接，避免把仓库子路径散落在组件中。
 - PDF 文件名来自 `resumes.ts`，使用浏览器 URL 编码处理中文文件名。
@@ -393,8 +400,8 @@ npm run preview
 
 1. `npm run build` 无 TypeScript 或 Vite 错误；
 2. 首页按 Hero、技术栈、精选项目、开源、简历、联系顺序完整展示；
-3. 四个项目筛选状态结果正确；
-4. 六个项目卡均能进入对应详情页；
+3. 全部与各项目分类筛选结果正确；
+4. 所有项目卡均能进入对应详情页；
 5. 不存在的 slug 和未知路由显示 404；
 6. Header 页面导航、跨页简历入口和移动菜单均正确工作；
 7. 三份 PDF、项目外链和四条 PR 链接可访问；
@@ -422,7 +429,7 @@ npm run preview
 ## 15. 推荐实施顺序
 
 1. 复制图片和 PDF，确认静态路径；
-2. 创建并校验 `projects.ts` 六个对象；
+2. 创建并校验 `projects.ts` 中的项目对象；
 3. 创建证据、状态和基础 UI 小组件；
 4. 完成 Header、Footer、首页 sections 与 HomePage；
 5. 完成详情页、404 和 HashRouter 锚点行为；

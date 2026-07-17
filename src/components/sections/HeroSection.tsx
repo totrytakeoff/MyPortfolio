@@ -9,9 +9,9 @@ import { SectionLink } from '../ui/SectionLink'
 
 const heroMetrics = [
   { value: 714.4, fractionDigits: 1, unit: 'msg/s', label: 'MyChat WSS' },
-  { value: 22, fractionDigits: 0, unit: '单测通过', label: 'SO101 控制逻辑' },
+  { value: 26, fractionDigits: 0, unit: '单测通过', label: 'SO101 控制逻辑' },
   { value: 4, fractionDigits: 0, unit: 'Merged PR', label: '上游贡献' },
-  { value: 65, fractionDigits: 0, unit: '本人提交', label: 'RM2026 本地记录' },
+  { value: 30, fractionDigits: 0, unit: '固件目标', label: 'RM2026 全量构建' },
 ] as const
 
 const projectSequence = [
