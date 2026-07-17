@@ -18,12 +18,11 @@ http://localhost:5173/myPortfolio/
 ## 质量检查
 
 ```bash
-npm run lint
-npm run build
+npm run check
 npm run preview
 ```
 
-`npm run build` 会先检查应用和 Vite 配置的 TypeScript，再生成 `dist/`。
+`npm run check` 依次执行 ESLint、应用与 Vite 配置的 TypeScript 检查，再生成 `dist/`。
 
 ## 路由
 
@@ -53,8 +52,13 @@ npm run preview
 
 ## GitHub Pages
 
-Vite 的 `base` 已设为 `/myPortfolio/`。构建后将 `dist/` 内容发布到仓库对应的 Pages 来源即可。详情路由示例：
+`.github/workflows/pages.yml` 在 pull request 中执行质量检查，在 `master` 推送或手动触发时构建并部署 GitHub Pages。CI 会根据实际仓库名注入 `VITE_BASE_PATH`，避免 Pages 子路径大小写不一致。
+
+当前仓库的线上地址为：
 
 ```text
-https://totrytakeoff.github.io/myPortfolio/#/projects/mychat
+https://totrytakeoff.github.io/MyPortfolio/
+https://totrytakeoff.github.io/MyPortfolio/#/projects/mychat
 ```
+
+首次启用时，需要在仓库 `Settings -> Pages -> Build and deployment` 中选择 `GitHub Actions`。此后检查失败不会覆盖线上版本，部署成功后 `github-pages` environment 会记录实际 URL。
