@@ -1,6 +1,8 @@
+import { motion } from 'framer-motion'
 import { CheckCircle2, CircleDotDashed } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import type { ProjectAudit, ProjectAuditStatus } from '../../types'
+import { sectionItemVariants, sectionRevealVariants } from '../../utils/motion'
 import { ProjectMediaFigure } from './ProjectMediaFigure'
 
 interface ProjectAuditPanelProps {
@@ -26,31 +28,56 @@ const statusPresentation: Record<
 export function ProjectAuditPanel({ audit }: ProjectAuditPanelProps) {
   return (
     <div>
-      <div className="grid gap-px bg-border sm:grid-cols-[150px_1fr]">
-        <div className="bg-surface/60 px-5 py-5">
+      <motion.div
+        className="grid gap-px bg-border sm:grid-cols-[150px_1fr]"
+        variants={sectionRevealVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-72px' }}
+      >
+        <motion.div className="bg-surface/60 px-5 py-5" variants={sectionItemVariants}>
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-text-dim">Audit date</p>
           <p className="mt-2 font-mono text-sm text-accent">{audit.date}</p>
-        </div>
-        <div className="bg-surface/30 px-5 py-5">
+        </motion.div>
+        <motion.div className="bg-surface/30 px-5 py-5" variants={sectionItemVariants}>
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-text-dim">Environment</p>
           <p className="mt-2 text-xs leading-6 text-text-muted">{audit.environment}</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <p className="mt-7 leading-8 text-text-muted">{audit.summary}</p>
 
-      <div className="mt-8 border-t border-border">
+      <motion.div
+        className="mt-8 border-t border-border"
+        variants={sectionRevealVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-72px' }}
+      >
         {audit.checks.map((check) => {
           const presentation = statusPresentation[check.status]
           const StatusIcon = presentation.icon
 
           return (
-            <article
+            <motion.article
               key={check.title}
               className="grid gap-4 border-b border-border py-5 sm:grid-cols-[120px_1fr]"
+              variants={sectionItemVariants}
             >
               <div className={`inline-flex items-start gap-2 font-mono text-[10px] uppercase tracking-[0.14em] ${presentation.className}`}>
-                <StatusIcon className="mt-px shrink-0" size={14} aria-hidden="true" />
+                <motion.span
+                  className="mt-px inline-flex shrink-0"
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.72 },
+                    visible: {
+                      opacity: 1,
+                      scale: 1,
+                      transition: { duration: 0.32, ease: 'easeOut' },
+                    },
+                  }}
+                >
+                  <StatusIcon size={14} aria-hidden="true" />
+                </motion.span>
                 {presentation.label}
               </div>
               <div>
@@ -60,22 +87,29 @@ export function ProjectAuditPanel({ audit }: ProjectAuditPanelProps) {
                   <p className="mt-2 text-xs leading-6 text-text-dim">{check.detail}</p>
                 ) : null}
               </div>
-            </article>
+            </motion.article>
           )
         })}
-      </div>
+      </motion.div>
 
       {audit.media && audit.media.length > 0 ? (
-        <div className="mt-9 space-y-7">
+        <motion.div
+          className="mt-9 space-y-7"
+          variants={sectionRevealVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-72px' }}
+        >
           {audit.media.map((media) => (
-            <ProjectMediaFigure
-              key={media.src}
-              media={media}
-              visualClassName="aspect-[16/10] border border-border sm:aspect-[16/9]"
-              sizes="(max-width: 1024px) 100vw, 720px"
-            />
+            <motion.div key={media.src} variants={sectionItemVariants}>
+              <ProjectMediaFigure
+                media={media}
+                visualClassName="aspect-[16/10] border border-border sm:aspect-[16/9]"
+                sizes="(max-width: 1024px) 100vw, 720px"
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       ) : null}
     </div>
   )

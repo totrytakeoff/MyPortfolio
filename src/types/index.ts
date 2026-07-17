@@ -4,6 +4,16 @@ export type ProjectStatus = 'verified' | 'mvp-verified' | 'release' | 'in-progre
 export type RoadmapStatus = 'done' | 'current' | 'planned'
 export type LinkType = 'repo' | 'pr' | 'benchmark' | 'release' | 'demo' | 'doc' | 'other'
 
+export interface ProjectArchiveState {
+  category: ProjectCategory | 'all'
+  scrollY: number
+}
+
+export interface ProjectNavigationState {
+  archive?: ProjectArchiveState
+  restoreArchive?: ProjectArchiveState
+}
+
 export interface ProjectLink {
   label: string
   url: string

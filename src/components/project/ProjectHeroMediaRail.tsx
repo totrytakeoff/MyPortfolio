@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import type { FocusEvent, KeyboardEvent } from 'react'
+import type { KeyboardEvent } from 'react'
 import { useMotionPreference } from '../../hooks/useMotionPreference'
 import type { ProjectMedia } from '../../types'
 import { ProjectMediaFigure } from './ProjectMediaFigure'
@@ -85,8 +85,6 @@ export function ProjectHeroMediaRail({
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [direction, setDirection] = useState(1)
   const [userPaused, setUserPaused] = useState(false)
-  const [hoverPaused, setHoverPaused] = useState(false)
-  const [focusPaused, setFocusPaused] = useState(false)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [documentVisible, setDocumentVisible] = useState(
     () => typeof document === 'undefined' || document.visibilityState !== 'hidden',
@@ -101,8 +99,6 @@ export function ProjectHeroMediaRail({
     setSelectedIndex(0)
     setDirection(1)
     setUserPaused(false)
-    setHoverPaused(railRef.current?.matches(':hover') ?? false)
-    setFocusPaused(railRef.current?.contains(document.activeElement) ?? false)
     setLightboxOpen(false)
     setAnnouncement('')
   }, [itemsKey])
@@ -122,8 +118,6 @@ export function ProjectHeroMediaRail({
   const autoplayRunning = hasMultiple
     && motionEnabled
     && !userPaused
-    && !hoverPaused
-    && !focusPaused
     && !lightboxOpen
     && documentVisible
     && isInView
@@ -152,12 +146,6 @@ export function ProjectHeroMediaRail({
   const selectRelative = (offset: number) => {
     const nextIndex = (safeIndex + offset + items.length) % items.length
     selectSlide(nextIndex, offset > 0 ? 1 : -1)
-  }
-
-  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
-    if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) {
-      setFocusPaused(false)
-    }
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -191,10 +179,6 @@ export function ProjectHeroMediaRail({
       aria-label={label}
       tabIndex={0}
       className={`overflow-hidden border border-border bg-[#0b0d12] outline-none focus-visible:border-accent/70 [--rail-side-offset:86%] sm:[--rail-side-offset:80%] ${className}`}
-      onMouseEnter={() => setHoverPaused(true)}
-      onMouseLeave={() => setHoverPaused(false)}
-      onFocusCapture={() => setFocusPaused(true)}
-      onBlurCapture={handleBlur}
       onKeyDown={handleKeyDown}
     >
       <div className="relative isolate overflow-hidden bg-[radial-gradient(circle_at_50%_18%,rgba(145,181,255,0.1),transparent_48%)] px-0 py-4 sm:py-7">

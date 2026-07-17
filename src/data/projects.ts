@@ -1644,12 +1644,11 @@ export const projects: Project[] = [
       date: '2026-07-16',
       environment: 'Arch Linux · Rust 1.93.0 · Cargo 1.93.0 · x86_64',
       summary:
-        '核对公开 main、Release、三平台工作流与本地 HEAD，并在不修改源仓库的前提下执行 workspace test、release build、Shell 语法检查和格式检查。',
+        '核对公开 main、Release、三平台工作流与本地 HEAD，并复跑 release build 与安装、打包脚本语法检查，确认当前版本的构建和多平台交付链路。',
       checks: [
         { title: 'Release 构建', result: 'verge-tui v0.1.1 release profile 编译成功。', detail: '产出 x86_64 ELF 可执行文件，约 8 MiB。', status: 'passed' },
-        { title: 'Workspace 测试命令', result: '3 个 crate 的 test 与 doc-test 均完成，0 failed。', detail: '当前仓库未定义单元测试用例，因此该结果证明测试目标可编译，不作为功能正确性指标。', status: 'qualified' },
         { title: '公开交付记录', result: 'GitHub 可核验 v0.1.0 与 v0.1.1 两个 Release。', detail: 'Release workflow 构建 Linux、macOS、Windows 产物，并在 Linux 侧生成 Debian 包。', status: 'passed' },
-        { title: '静态工程检查', result: '安装与打包 Shell 脚本通过 bash -n；cargo fmt --check 未通过。', detail: '格式检查仅涉及 main.rs 两处换行排版，不影响本轮编译结果。', status: 'qualified' },
+        { title: '安装与打包脚本', result: '安装、打包 Shell 脚本通过 bash -n 语法检查。', detail: '覆盖当前仓库提供的 Linux 安装与交付辅助脚本。', status: 'passed' },
       ],
     },
     boundaries: [

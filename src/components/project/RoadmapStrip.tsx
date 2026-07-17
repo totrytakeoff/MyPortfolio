@@ -1,5 +1,8 @@
+import { motion } from 'framer-motion'
 import { ArrowDown, ArrowRight, Check } from 'lucide-react'
+import { useMotionPreference } from '../../hooks/useMotionPreference'
 import type { RoadmapItem } from '../../types'
+import { sectionItemVariants, sectionRevealVariants } from '../../utils/motion'
 
 interface RoadmapStripProps {
   items: RoadmapItem[]
@@ -12,26 +15,51 @@ const roadmapClassNames: Record<RoadmapItem['status'], string> = {
 }
 
 export function RoadmapStrip({ items }: RoadmapStripProps) {
+  const { motionEnabled } = useMotionPreference()
+
   return (
-    <ol className="flex flex-col gap-2 lg:flex-row lg:items-center" aria-label="项目路线进展">
+    <motion.ol
+      className="flex flex-col gap-2 lg:flex-row lg:items-center"
+      aria-label="项目路线进展"
+      variants={sectionRevealVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-72px' }}
+    >
       {items.map((item, index) => (
         <li key={item.label} className="contents">
-          <div className={`flex min-h-12 flex-1 items-center justify-center gap-2 border px-3 py-2 text-center text-xs ${roadmapClassNames[item.status]}`}>
+          <motion.div
+            className={`relative flex min-h-12 flex-1 items-center justify-center gap-2 overflow-hidden border px-3 py-2 text-center text-xs ${roadmapClassNames[item.status]}`}
+            variants={sectionItemVariants}
+          >
+            {item.status === 'current' && motionEnabled ? (
+              <motion.span
+                data-current-roadmap-pulse
+                className="pointer-events-none absolute inset-[-1px] border border-accent"
+                animate={{ opacity: [0.14, 0.52, 0.14] }}
+                transition={{ duration: 3, ease: 'easeInOut', repeat: Infinity }}
+                aria-hidden="true"
+              />
+            ) : null}
             {item.status === 'done' ? <Check aria-hidden="true" size={14} /> : null}
             {item.status === 'current' ? <ArrowRight aria-hidden="true" size={14} /> : null}
             <span>{item.label}</span>
             <span className="sr-only">
               {item.status === 'done' ? '已完成' : item.status === 'current' ? '当前阶段' : '后续规划'}
             </span>
-          </div>
+          </motion.div>
           {index < items.length - 1 ? (
-            <span className="flex justify-center text-text-dim" aria-hidden="true">
+            <motion.span
+              className="flex justify-center text-text-dim"
+              variants={sectionItemVariants}
+              aria-hidden="true"
+            >
               <ArrowDown className="lg:hidden" size={14} />
               <ArrowRight className="hidden lg:block" size={14} />
-            </span>
+            </motion.span>
           ) : null}
         </li>
       ))}
-    </ol>
+    </motion.ol>
   )
 }

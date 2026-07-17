@@ -328,9 +328,9 @@ HashRouter 与页面锚点共享浏览器 hash，不能用普通 `href="#project
 1. Header 主导航使用页面路由，不承担首页 section 目录；
 2. 简历动作在首页滚动到 `resumes`，在其他页先导航回 `/` 后再滚动；
 3. 固定 Header 的偏移由全局 `scroll-padding-top` 处理；
-4. 路由切换到项目档案、详情页或 404 时恢复页面顶部。
+4. 普通路由切换到项目档案、详情页或 404 时恢复页面顶部；从详情返回项目档案时恢复进入前的分类与滚动位置。
 
-项目卡使用 React Router `Link` 跳转 `/projects/:slug`。slug 不存在时渲染 404 状态，不抛运行时异常。
+项目卡使用 React Router `Link` 跳转 `/projects/:slug`。共享元素转场只作为渐进增强，必须保留修饰键、新标签页、无原生 API 和减少动态偏好下的正常导航。slug 不存在时渲染 404 状态，不抛运行时异常。
 
 ## 10. 外链与下载
 
@@ -352,6 +352,7 @@ HashRouter 与页面锚点共享浏览器 hash，不能用普通 `href="#project
 | `ProjectsSection` | 完整项目页分类状态与筛选列表 | projects API |
 | `ProjectFilter` | 分类按钮组，不持有项目数据 | category props |
 | `ProjectCard` | 单项目摘要、状态、指标、标签和详情入口 | Project prop |
+| `AnimatedMetricText` | 项目字符串指标的语义化计数或安全揭示 | ProjectMetric.value |
 | `SkillsSection` | 四个能力域 | skills.ts |
 | `OpenSourceSection` | 四条合并贡献 | openSource.ts |
 | `ResumesSection` | 三个简历版本与下载入口 | resumes.ts |

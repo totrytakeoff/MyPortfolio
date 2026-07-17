@@ -14,7 +14,7 @@ export default {
         'border-hover': '#464d5c',
         'text-primary': '#f0f2f5',
         'text-muted': '#a8adb8',
-        'text-dim': '#6f7582',
+        'text-dim': '#78808e',
         accent: '#91b5ff',
         'accent-dim': '#18284a',
         'status-green': '#71d7a3',

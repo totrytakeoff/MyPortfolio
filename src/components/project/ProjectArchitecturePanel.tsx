@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import type { ProjectArchitecture } from '../../types'
+import { sectionItemVariants, sectionRevealVariants } from '../../utils/motion'
 import { ProjectMediaFigure } from './ProjectMediaFigure'
 
 interface ProjectArchitecturePanelProps {
@@ -11,12 +13,33 @@ export function ProjectArchitecturePanel({ architecture }: ProjectArchitecturePa
     <div>
       <p className="leading-8 text-text-muted">{architecture.summary}</p>
 
-      <ol className="mt-8 grid border-l border-t border-border sm:grid-cols-2 lg:grid-cols-3">
+      <motion.ol
+        className="mt-8 grid border-l border-t border-border sm:grid-cols-2 lg:grid-cols-3"
+        variants={sectionRevealVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-72px' }}
+      >
         {architecture.flow.map((step, index) => (
-          <li
+          <motion.li
             key={step.label}
-            className="group relative min-h-44 border-b border-r border-border bg-surface/20 px-5 py-5"
+            className="group relative min-h-44 overflow-hidden border-b border-r border-border bg-surface/20 px-5 py-5 transition-colors duration-300 hover:bg-accent-dim/10"
+            variants={sectionItemVariants}
           >
+            <motion.span
+              data-flow-signal={index + 1}
+              className="pointer-events-none absolute inset-x-0 top-0 h-px origin-left bg-accent"
+              initial={{ scaleX: 0, opacity: 0 }}
+              whileInView={{ scaleX: [0, 1, 1], opacity: [0, 0.8, 0.18] }}
+              viewport={{ once: true, amount: 0.65 }}
+              transition={{
+                delay: 0.12 + index * 0.09,
+                duration: 0.58,
+                times: [0, 0.72, 1],
+                ease: 'easeOut',
+              }}
+              aria-hidden="true"
+            />
             <div className="flex items-center justify-between gap-4">
               <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
                 {step.label}
@@ -33,24 +56,38 @@ export function ProjectArchitecturePanel({ architecture }: ProjectArchitecturePa
               {step.title}
             </h3>
             <p className="mt-3 text-xs leading-6 text-text-dim">{step.description}</p>
-          </li>
+          </motion.li>
         ))}
-      </ol>
+      </motion.ol>
 
       {architecture.media ? (
-        <ProjectMediaFigure
+        <motion.div
+          initial={{ opacity: 0.72, scale: 1.01 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-72px' }}
+          transition={{ duration: 0.58, ease: 'easeOut' }}
+        >
+          <ProjectMediaFigure
             media={architecture.media}
             figureClassName="mt-8"
             visualClassName="aspect-[16/10] border border-border sm:aspect-[16/9]"
             sizes="(max-width: 1024px) 100vw, 760px"
           />
+        </motion.div>
       ) : null}
 
-      <div className="mt-10 border-t border-border">
+      <motion.div
+        className="mt-10 border-t border-border"
+        variants={sectionRevealVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-72px' }}
+      >
         {architecture.decisions.map((item, index) => (
-          <article
+          <motion.article
             key={item.title}
             className="grid gap-5 border-b border-border py-7 sm:grid-cols-[44px_1fr]"
+            variants={sectionItemVariants}
           >
             <span className="font-display text-2xl italic text-accent/70">
               {String(index + 1).padStart(2, '0')}
@@ -91,9 +128,9 @@ export function ProjectArchitecturePanel({ architecture }: ProjectArchitecturePa
                 </p>
               ) : null}
             </div>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </div>
   )
 }
