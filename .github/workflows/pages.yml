@@ -22,7 +22,7 @@ jobs:
       contents: read
     env:
       CI: true
-      VITE_BASE_PATH: /
+      VITE_BASE_PATH: ./
 
     steps:
       - name: Check out repository
